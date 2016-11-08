@@ -1,0 +1,22 @@
+{
+  "name": "beer",
+  "description": "Web app for looking up beer descriptions and ratings.",
+  "main": "index.js",
+  "authors": [
+    "Brian Chan <brianchan@utexas.edu>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "react": "^15.3.2"
+  }
+}

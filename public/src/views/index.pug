@@ -1,0 +1,21 @@
+doctype html
+html()
+  head
+    title
+        | What Am I Drinking??
+        block title
+    meta(charset='utf8')
+    meta(name='author' content='Brian Chan')
+    meta(name='description' content='Find descriptions, ratings for beers')
+    meta(name='viewport' content="width=device-width, initial-scale=1, user-scalable=no")
+    base(href='/')
+    link(rel='stylesheet' href='components/bootstrap/dist/css/bootstrap.min.css')
+    link(href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet')
+    link(href="src/css/home.css" rel="stylesheet")
+  body
+    block bodystuff
+        div(id="beer")
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js')
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.2/react.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.2/react-dom.js")
+    script(src='/bin/app.bundle.js')

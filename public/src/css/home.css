@@ -1,0 +1,130 @@
+body {
+	-webkit-font-smoothing: antialiased;
+	font-family: 'Lato', sans-serif;
+	background-image: url("../img/wallpaper_50.jpg");
+}
+
+h1.title {
+	text-align: center;
+	margin: 0 auto;
+	padding: 30px 0px 0px 0px;
+	color: white;
+}
+
+div.searchbar {
+	text-align: center;
+	margin: 30px 0px 30px 0px;
+}
+
+div.results div.beer-row {
+	text-align: center;
+	white-space: nowrap;
+	width: 100vw;
+	position: relative;
+	margin: 0 auto;
+	transition-duration: .25s;
+}
+
+div.results div.beer-row.active {
+	margin-bottom: 50vh;
+}
+
+div.results div.beer {
+	display: inline-block;
+	position: relative;
+	width: 15%;
+	text-align: center;
+	padding: 30px 0px 30px 0px;
+	transition-duration: .5s;
+	overflow: hidden;
+}
+
+div.results div.beer.active {
+	width: 25%;
+	background-color: white;
+	opacity: .75;
+	vertical-align: middle;
+	border-radius: 16px;
+}
+div.results div.beer:hover {
+	width: 25%;
+	cursor: pointer;
+}
+
+div.results div.beer h4 {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	font-weight: bold;
+	color: white;
+}
+div.results div.beer img {
+	width: 90%;
+	opacity: .75;
+	border-radius: 24px;
+	box-shadow: 2px 2px 2px black;
+}
+div.results div.beer img.custom {
+	background-color: white;
+}
+
+div.results div.detail-container {
+	position: absolute;
+	width: 100vw;
+}
+div.results div.detail {
+	width: 50vw;
+	min-height: 45vh;
+	max-height: 100%;
+	margin: 0 auto;
+	position: relative;
+	opacity: 0;
+	padding: 0px 10px 10px 10px;
+	background-color: white;
+	white-space: normal;
+	text-align: center;
+}
+div.results div.detail div.beer-detail {
+	margin: 5px 0px 10px 0px;
+}
+
+div.results div.detail div.description, div.results div.detail table {
+	text-align: left;
+}
+
+div.results div.beer-row.active div.detail {
+	opacity: .9;
+	box-shadow: 2px 2px 2px black;
+	border-radius: 16px;
+} 
+div.detail > div table {
+	margin: 0 auto;
+}
+div.detail > div table td {
+	padding: 10px 10px 10px 10px;
+	border: 1px solid black;
+}
+
+/* for midsized devices */
+@media (max-width: 1199px) {
+	div.results div.beer-row.active {
+		margin-bottom: 55vh;
+	}
+	h4 {
+		font-size: 14px;
+	}
+	div.results div.detail {
+		width: 80vw;
+	}
+}
+
+/* for phones */
+@media (max-width: 480px) {
+	div.results div.beer-row.active {
+		margin-bottom: 10vh;
+	}
+	div.results div.beer-row.active div.detail-container {
+		position: relative;
+	}
+}
