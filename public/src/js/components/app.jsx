@@ -17,7 +17,7 @@ var app = React.createClass({
 
 	componentWillMount: function() {
 		this.setState({
-			numberInRow: document.getElementsByTagName("html")[0].className.indexOf("touchevents") > -1 ? 2 : 6 
+			numberInRow: document.getElementsByTagName("html")[0].className.indexOf("no-touchevents") > -1 ? 6 : 2 
 		});
 
 		// on change update current beers
@@ -53,7 +53,6 @@ var app = React.createClass({
 	},
 	render: function() {
 
-		console.log(this.state.touch);
 		// create Beer components for each beer found
 		var beers = this.state.beers.map(function createElement(item) {
 			if ( !item.name || !item.breweries[0].images || !item.breweries[0].images.squareMedium ) {
@@ -65,7 +64,6 @@ var app = React.createClass({
 		}.bind(this));
 
 		var beerContainers = [];
-		// var numberInRow = this.state.touch ? 2 : 6;
 
 		for (let i = beers.length - 1; i >= 0; i--) {
 			if (!beers[i]) {
