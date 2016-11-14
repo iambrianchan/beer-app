@@ -127,4 +127,10 @@ div.detail > div table td {
 	div.results div.beer-row.active div.detail-container {
 		position: relative;
 	}
+	div.results div.beer {
+		width: 40%;
+	}
+	div.results div.beer:hover {
+		width: 50%;
+	}
 }

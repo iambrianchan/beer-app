@@ -1,11 +1,10 @@
 {
   "name": "beer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Web app for looking up beer descriptions and ratings.",
   "main": "index.js",
   "scripts": {
     "start": "grunt",
-    "build": "node_modules/webpack/bin/webpack.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Brian Chan",
@@ -15,8 +14,6 @@
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "flux": "^3.1.0",
-    "grunt": "^1.0.1",
-    "grunt-nodemon": "^0.4.2",
     "method-override": "^2.3.6",
     "pug": "^2.0.0-beta6",
     "react": "^15.3.2",
@@ -27,6 +24,11 @@
     "babel-core": "^6.18.0",
     "babel-loader": "^6.2.7",
     "babel-preset-es2015": "^6.18.0",
-    "babel-preset-react": "^6.16.0"
+    "babel-preset-react": "^6.16.0",
+    "grunt": "^1.0.1",
+    "grunt-modernizr": "^1.0.2",
+    "grunt-nodemon": "^0.4.2",
+    "grunt-webpack": "^1.0.18",
+    "webpack-dev-server": "^1.16.2"
   }
 }

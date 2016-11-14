@@ -3,34 +3,60 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
 
-    // jade: {
-    //   compile: {
-    //     options: {
-    //       data: {
-    //         debug: false
-    //       }
-    //     },
-    //     files: {
-    //       'public/views/home.html' : 'public/views/home.jade'
-    //     }
-    //   }
-    // },
-
     // configure nodemon
     nodemon: {
       dev: {
         script: 'index.js'
       }
-    }
+    },
 
+    // configure webpack
+    webpack: {
+      dist: {
+       entry: './public/src/js/beer.js',
+       output: {
+           path: './bin',
+           filename: 'app.bundle.js',
+       },
+       module: {
+          loaders: [
+
+              {
+                  test: /\.js$/, 
+                  exclude: /node_modules/,
+                  loader: "babel-loader"
+              },
+              {
+                  test: /\.jsx$/, 
+                  exclude: /node_modules/,
+                  loader: "babel-loader"
+              }
+          ]
+       }
+      }
+    },
+
+    // configure modernizr
+    modernizr: {
+      dist: {
+        "crawl": false,
+        "customTests": [],
+        "dest": "./bin/modernizr.js",
+        "tests": [
+          "touchevents"
+        ],
+        "options": [
+          "setClasses"
+        ],
+        "uglify": true
+      }
+    }
   });
 
-  // load nodemon
   grunt.loadNpmTasks('grunt-nodemon');
-  // grunt.loadNpmTasks('grunt-contrib-jade')
+  grunt.loadNpmTasks('grunt-modernizr');
+  grunt.loadNpmTasks('grunt-webpack');
 
-  // register the nodemon task when we run grunt
-  // grunt.registerTask('default', ['nodemon', 'jade']); 
-  grunt.registerTask('default', ['nodemon']); 
+  grunt.registerTask('default', ['webpack:dist', 'modernizr:dist', 'nodemon']); 
 
 };

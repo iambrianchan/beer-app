@@ -7,6 +7,7 @@ var app = React.createClass({
 	// query, beers, description, active row
 	getInitialState: function() {
 		return {
+			numberInRow: 6,
 			query: "",
 			beers: BeerStore.getBeers(),
 			description: BeerStore.getDescription(),
@@ -15,6 +16,9 @@ var app = React.createClass({
 	},
 
 	componentWillMount: function() {
+		this.setState({
+			numberInRow: document.getElementsByTagName("html")[0].className.indexOf("touchevents") > -1 ? 2 : 6 
+		});
 
 		// on change update current beers
 		BeerStore.on("change", () => {
@@ -32,7 +36,7 @@ var app = React.createClass({
 				for (let i = 0; i < this.state.beers.length; i++) {
 					if (this.state.beers[i].id == this.state.description.id) {
 						this.setState({
-							activeRow: Math.floor( ( i / 6 ) )
+							activeRow: Math.floor( ( i / this.state.numberInRow ) )
 						});
 					};
 				};
@@ -49,6 +53,7 @@ var app = React.createClass({
 	},
 	render: function() {
 
+		console.log(this.state.touch);
 		// create Beer components for each beer found
 		var beers = this.state.beers.map(function createElement(item) {
 			if ( !item.name || !item.breweries[0].images || !item.breweries[0].images.squareMedium ) {
@@ -60,17 +65,19 @@ var app = React.createClass({
 		}.bind(this));
 
 		var beerContainers = [];
+		// var numberInRow = this.state.touch ? 2 : 6;
+
 		for (let i = beers.length - 1; i >= 0; i--) {
 			if (!beers[i]) {
 				beers.splice(i, 1);
 			}
 		}
-		for (let i = 0; i < beers.length; i+=6) {
-			if (i + 6 > beers.length) {
+		for (let i = 0; i < beers.length; i+=this.state.numberInRow) {
+			if (i + this.state.numberInRow > beers.length) {
 				beerContainers.push(beers.slice(i, beers.length));
 			}
 			else {
-				beerContainers.push(beers.slice(i, i+6));
+				beerContainers.push(beers.slice(i, i+this.state.numberInRow));
 			}
 		}
 
@@ -103,11 +110,11 @@ var app = React.createClass({
 												<td>{this.state.description.BaScore}</td>
 											</tr>
 											<tr>
-												<td>Bros Rating </td>
+												<td>BA Bros Rating </td>
 												<td>{this.state.description.BrosRating}</td>
 											</tr>
 											<tr>
-												<td>Bros Score </td>
+												<td>BA Bros Score </td>
 												<td>{this.state.description.BrosScore}</td>
 											</tr>											
 										</tbody>
@@ -122,7 +129,7 @@ var app = React.createClass({
 
 		return (
 			<div>
-				<h1 className="title">What Am I Drinking?</h1>
+				<h1 className="title">What Brew am I Drinking?</h1>
 				<div className="searchbar">
 					<input type="text" ref={(c) => this.query = c}></input>
 					<button onClick={this.search}><span className="glyphicon glyphicon-search"></span></button>

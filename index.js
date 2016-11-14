@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(methodOverride("X-HTTP-Method-Override"));
 
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + "/"));
 
 require("./app/routes")(app);
 
