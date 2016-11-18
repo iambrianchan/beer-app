@@ -28,7 +28,9 @@ class BeerStore extends EventEmitter {
 			this.beers = beers;		
 		}
 		for (let i = 0; i < this.beers.length; i++) {
-			if (!this.beers[i]) console.log(i, this.beers[i]);
+			if (!this.beers[i]) {
+				console.log(i, this.beers[i]);
+			}
 		}
 		return;
 	}
@@ -55,7 +57,7 @@ class BeerStore extends EventEmitter {
 	}
 
 	handleActions(action) {
-		// console.log(action);
+
 		switch (action.type) {
 
 			case "UPDATE_BEERS": {
@@ -75,7 +77,8 @@ class BeerStore extends EventEmitter {
 			case "RECEIVED_RATING": {
 				this.updateDescription(action.rating, action.beer);
 
-				this.emit("description");
+				this.emit("rating");
+				this.emit("jump");
 				break;
 			}
 		}

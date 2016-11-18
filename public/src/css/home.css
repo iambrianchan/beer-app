@@ -121,6 +121,13 @@ div.detail > div table td {
 
 /* for phones */
 @media (max-width: 480px) {
+
+	body {
+		background-position: -500px -250px;
+	}
+	div.results div.beer-row {
+		transition-duration: 0s;
+	}
 	div.results div.beer-row.active {
 		margin-bottom: 10vh;
 	}
@@ -128,6 +135,7 @@ div.detail > div table td {
 		position: relative;
 	}
 	div.results div.beer {
+		transition-duration: 0s;
 		width: 40%;
 	}
 	div.results div.beer:hover {

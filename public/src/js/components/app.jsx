@@ -32,16 +32,24 @@ var app = React.createClass({
 		BeerStore.on("description", () => {
 			this.setState({
 				description: BeerStore.getDescription()
-			}, function() {
+			}, function callback() {
 				for (let i = 0; i < this.state.beers.length; i++) {
 					if (this.state.beers[i].id == this.state.description.id) {
-						this.setState({
+						return this.setState({
 							activeRow: Math.floor( ( i / this.state.numberInRow ) )
+						}, function clalback() {
+							this.jump(this.state.description.id);
 						});
 					};
 				};
 			});
 		});
+
+		BeerStore.on("rating", () => {
+			this.setState({
+				description: BeerStore.getDescription()
+			});
+		})
 	},
 
 	// send Action to search for a beer
@@ -50,6 +58,13 @@ var app = React.createClass({
 			return;
 		}
 		return BeerActions.getBeers(this.query.value);
+	},
+	jump: function(id) {
+		return setTimeout(function() {
+			if (document.getElementsByTagName("html")[0].className.indexOf("no-touchevents") == -1) {
+				document.getElementById(id).scrollIntoView(true);				
+			}
+		}, 0);
 	},
 	render: function() {
 
@@ -85,7 +100,7 @@ var app = React.createClass({
 				<div key={index} id={index} className={this.state.activeRow == index ? "beer-row active" : "beer-row"}>
 					<div>
 						{row}
-						<div className="detail-container">
+						<div id={"detail-" + index} className="detail-container">
 							<div className="detail row">
 								<h2>{ this.state.description.name }</h2>
 								<div className="beer-detail">
@@ -127,10 +142,12 @@ var app = React.createClass({
 
 		return (
 			<div>
-				<h1 className="title">What Brew am I Drinking?</h1>
-				<div className="searchbar">
-					<input type="text" ref={(c) => this.query = c}></input>
-					<button onClick={this.search}><span className="glyphicon glyphicon-search"></span></button>
+				<div>
+					<div className="searchbar">
+						<h1 className="title">What Brew am I Drinking?</h1>
+						<input type="text" ref={(c) => this.query = c}></input>
+						<button onClick={this.search}><span className="glyphicon glyphicon-search"></span></button>
+					</div>
 				</div>
 				<div className="results row">
 					{beerContainers}
