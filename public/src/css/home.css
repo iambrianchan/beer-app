@@ -125,6 +125,9 @@ div.detail > div table td {
 	body {
 		background-position: -500px -250px;
 	}
+	div.searchbar input {
+		width: 75%;
+	}
 	div.results div.beer-row {
 		transition-duration: 0s;
 	}

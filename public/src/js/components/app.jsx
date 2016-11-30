@@ -11,7 +11,8 @@ var app = React.createClass({
 			query: "",
 			beers: BeerStore.getBeers(),
 			description: BeerStore.getDescription(),
-			activeRow: -1
+			activeRow: -1,
+			keyup: this.keyup()
 		}
 	},
 
@@ -52,12 +53,24 @@ var app = React.createClass({
 		})
 	},
 
+	// listen for key ups, if return button is pressed then search
+	keyup: function() {
+		document.addEventListener("keyup", function callback(e) {
+			if (e.keyCode == 13) {
+				console.log(this.state.query.value);
+				this.search();
+			}
+			return;
+
+		}.bind(this));
+	},
+
 	// send Action to search for a beer
 	search: function() {
-		if (!this.query) {
+		if (!this.state.query) {
 			return;
 		}
-		return BeerActions.getBeers(this.query.value);
+		return BeerActions.getBeers(this.state.query.value);
 	},
 	jump: function(id) {
 		return setTimeout(function() {
@@ -145,7 +158,7 @@ var app = React.createClass({
 				<div>
 					<div className="searchbar">
 						<h1 className="title">What Brew am I Drinking?</h1>
-						<input type="text" ref={(c) => this.query = c}></input>
+						<input type="text" ref={(c) => this.state.query = c}></input>
 						<button onClick={this.search}><span className="glyphicon glyphicon-search"></span></button>
 					</div>
 				</div>
