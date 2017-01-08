@@ -57,7 +57,6 @@ var app = React.createClass({
 	keyup: function() {
 		document.addEventListener("keyup", function callback(e) {
 			if (e.keyCode == 13) {
-				console.log(this.state.query.value);
 				this.search();
 			}
 			return;
@@ -84,7 +83,7 @@ var app = React.createClass({
 		// create Beer components for each beer found
 		var beers = this.state.beers.map(function createElement(item) {
 			if ( !item.name || !item.breweries[0].images || !item.breweries[0].images.squareMedium ) {
-				item.image = "/src/img/tap.png";
+				item.image = "/public/src/img/tap.png";
 			}
 			return (
 				<Beer key={item.id} data={item} />
