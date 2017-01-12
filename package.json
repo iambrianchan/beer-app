@@ -12,6 +12,7 @@
   "dependencies": {
     "beeradvocate-api": "0.0.1",
     "body-parser": "^1.15.2",
+    "compression": "^1.6.2",
     "express": "^4.14.0",
     "flux": "^3.1.0",
     "method-override": "^2.3.6",
@@ -28,6 +29,9 @@
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",
     "grunt": "^1.0.1",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-cssmin": "^1.0.2",
+    "grunt-contrib-uglify": "^2.0.0",
     "grunt-modernizr": "^1.0.2",
     "grunt-nodemon": "^0.4.2",
     "grunt-webpack": "^1.0.18",

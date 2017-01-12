@@ -36,6 +36,35 @@ module.exports = function(grunt) {
       }
     },
 
+    // uglify
+    uglify: {
+      my_target: {
+        options: {
+          beautify: true
+        },
+        files: [{
+          src: 'app.bundle.js',
+          dest: 'bin',
+          cwd: 'bin',
+          expand: true,
+          ext: '.min.js'
+        }]
+      }
+    },
+
+    // cssmin
+    cssmin: {
+      target: {
+        files: [{
+          expand: true,
+          cwd: 'public/src/css',
+          src: ['*.css'],
+          dest: 'bin/css',
+          ext: '.min.css'
+        }]
+      }
+    },
+
     // configure modernizr
     modernizr: {
       dist: {
@@ -50,13 +79,24 @@ module.exports = function(grunt) {
         ],
         "uglify": true
       }
+    },
+
+    // remove annotated angular files
+    clean: {
+      files: {
+        src: ['bin/app.bundle.js']
+      }
     }
+
   });
 
   grunt.loadNpmTasks('grunt-nodemon');
   grunt.loadNpmTasks('grunt-modernizr');
   grunt.loadNpmTasks('grunt-webpack');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-clean');
 
-  grunt.registerTask('default', ['webpack:dist', 'modernizr:dist', 'nodemon']); 
+  grunt.registerTask('default', ['webpack:dist', 'uglify', 'cssmin', 'modernizr:dist', 'clean', 'nodemon']); 
 
 };
