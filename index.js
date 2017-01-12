@@ -1,6 +1,7 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var methodOverride = require("method-override");
+var compression = require("compression");
 
 var app = express();
 var port = process.env.PORT || 5000;
@@ -8,6 +9,7 @@ var port = process.env.PORT || 5000;
 app.set("views", __dirname + "/public/src/views");
 app.set("view engine", "pug");
 
+app.use(compression());
 app.use(bodyParser.json());
 
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
