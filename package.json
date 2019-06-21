@@ -10,7 +10,7 @@
   "author": "Brian Chan",
   "license": "ISC",
   "dependencies": {
-    "beeradvocate-api": "0.0.1",
+    "ba-api": "^0.0.4",
     "body-parser": "^1.18.2",
     "compression": "^1.7.1",
     "express": "^4.16.2",

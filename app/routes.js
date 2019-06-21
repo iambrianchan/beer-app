@@ -1,23 +1,36 @@
 // routes
+"use strict";
 var http = require("http");
-var ba = require("beeradvocate-api");
+var ba = require("ba-api");
 
 var searchBA = function(beer, finish) {
 	ba.beerSearch(beer.name, function callback(beers) {
 		beers = JSON.parse(beers);
 		var beerUrl;
-		
+		var theBeer;
 		for (let i = 0; i < beers.length; i++) {
-			var sameName = beers[i].beer_name.toLowerCase().indexOf(beer.name.toLowerCase()) > -1;
-			var sameLocation = beer.breweries[0].locations ? beers[i].brewery_location.toLowerCase().indexOf(beer.breweries[0].locations[0].locality.toLowerCase()) > -1 : true;
+			if (beers[i].ba_score != undefined) {
+				theBeer = beers[i];
+				// return finish(beers[i]);
+			}
 
-			if (sameName && sameLocation) {
-				beerUrl = beers[i].beer_url;
+			var sameName = beers[i].beer_name.toLowerCase().indexOf(beer.name.toLowerCase()) > -1;
+			// var sameLocation = beer.breweries[0].locations ? beers[i].brewery_location.toLowerCase().indexOf(beer.breweries[0].locations[0].locality.toLowerCase()) > -1 : true;
+
+			if (sameName) {
+				theBeer = beers[i];
 			}
 		}
+		if (typeof theBeer == "undefined") {
+			return finish({});
+		}
 
-		if (beerUrl) {
-			ba.beerPage(beerUrl, function callback(beer) {
+		else if (typeof theBeer.ba_score != "undefined") {
+			return finish(JSON.stringify([theBeer]));
+		}
+
+		else if (typeof theBeer.beer_url != "undefined") {
+			ba.beerPage(theBeer.beer_url, function callback(beer) {
 				return finish(beer)
 			})
 		}
