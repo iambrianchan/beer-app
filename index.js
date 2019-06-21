@@ -4,7 +4,7 @@ var methodOverride = require("method-override");
 var compression = require("compression");
 
 var app = express();
-var port = process.env.PORT || 5000;
+var port = process.env.PORT || 8080;
 
 app.set("views", __dirname + "/public/src/views");
 app.set("view engine", "pug");

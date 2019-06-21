@@ -22,18 +22,26 @@ module.exports = function(grunt) {
           loaders: [
 
               {
-                  test: /\.js$/, 
+                  test: /\.js$/,
                   exclude: /node_modules/,
                   loader: "babel-loader"
               },
               {
-                  test: /\.jsx$/, 
+                  test: /\.jsx$/,
                   exclude: /node_modules/,
                   loader: "babel-loader"
               }
           ]
        }
       }
+    },
+
+   'webpack-dev-server': {
+       main: {
+          //contentBase: 'dist',
+            port: 9999,
+          //keepAlive: true
+        }
     },
 
     // uglify
@@ -65,7 +73,6 @@ module.exports = function(grunt) {
       }
     },
 
-    // configure modernizr
     modernizr: {
       dist: {
         "crawl": false,
@@ -77,7 +84,7 @@ module.exports = function(grunt) {
         "options": [
           "setClasses"
         ],
-        "uglify": true
+        "uglify": false
       }
     },
 
@@ -97,6 +104,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-clean');
 
-  grunt.registerTask('default', ['webpack:dist', 'uglify', 'cssmin', 'modernizr:dist', 'clean', 'nodemon']); 
+  grunt.registerTask('default', ['webpack:dist', 'webpack-dev-server', 'uglify', 'modernizr:dist', 'cssmin', 'clean', 'nodemon']); 
 
 };
