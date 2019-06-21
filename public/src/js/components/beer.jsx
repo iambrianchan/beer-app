@@ -1,26 +1,29 @@
 import * as BeerActions from "./../beerActions";
 import BeerStore from "./../beerStore";
 
-var beer = React.createClass({
-	getInitialState: function() {
-		return {
+class Beer extends React.Component {
+	constructor() {
+		super();
+		this.state = {
 			description: {}
-		}
-	},
+		};
+		this.search = this.search.bind(this);
+	};
 
-	search: function() {
+	search() {
+		console.log(this);
 		if (!this.props.data) {
 			return;
 		}
 
 		return BeerActions.getRating(this.props.data);
-	},
+	}
 
-	componentWillMount: function() {
+	componentWillMount() {
 
-	},
+	}
 
-	render: function() {
+	render() {
 		return (
 			<div id={this.props.data.id} className="beer" onClick={this.search}>
 				<h4>{this.props.data.name}</h4>
@@ -28,6 +31,6 @@ var beer = React.createClass({
 			</div>
 		)
 	}
-})
+}
 
-module.exports = beer;
+export default Beer;

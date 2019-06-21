@@ -2,21 +2,22 @@ import BeerStore from "./../beerStore";
 import * as BeerActions from "./../beerActions";
 import Beer from "./beer.jsx";
 
-var app = React.createClass({
+class App extends React.Component {
 
 	// query, beers, description, active row
-	getInitialState: function() {
-		return {
+	constructor() {
+		super();
+		this.state = {
 			numberInRow: 6,
 			query: "",
 			beers: BeerStore.getBeers(),
 			description: BeerStore.getDescription(),
 			activeRow: -1,
 			keyup: this.keyup()
-		}
-	},
+		};
+	}
 
-	componentWillMount: function() {
+	componentDidMount() {
 		this.setState({
 			numberInRow: document.getElementsByTagName("html")[0].className.indexOf("no-touchevents") > -1 ? 6 : 2 
 		});
@@ -38,7 +39,7 @@ var app = React.createClass({
 					if (this.state.beers[i].id == this.state.description.id) {
 						return this.setState({
 							activeRow: Math.floor( ( i / this.state.numberInRow ) )
-						}, function clalback() {
+						}, function callback() {
 							this.jump(this.state.description.id);
 						});
 					};
@@ -50,11 +51,13 @@ var app = React.createClass({
 			this.setState({
 				description: BeerStore.getDescription()
 			});
-		})
-	},
+		});
+
+		console.log(this)
+	}
 
 	// listen for key ups, if return button is pressed then search
-	keyup: function() {
+	keyup() {
 		document.addEventListener("keyup", function callback(e) {
 			if (e.keyCode == 13) {
 				this.search();
@@ -62,23 +65,25 @@ var app = React.createClass({
 			return;
 
 		}.bind(this));
-	},
+	}
 
 	// send Action to search for a beer
-	search: function() {
+	search() {
 		if (!this.state.query) {
 			return;
 		}
 		return BeerActions.getBeers(this.state.query.value);
-	},
-	jump: function(id) {
+	}
+
+	jump(id) {
 		return setTimeout(function() {
 			if (document.getElementsByTagName("html")[0].className.indexOf("no-touchevents") == -1) {
 				document.getElementById(id).scrollIntoView(true);				
 			}
 		}, 0);
-	},
-	render: function() {
+	}
+
+	render() {
 
 		// create Beer components for each beer found
 		var beers = this.state.beers.map(function createElement(item) {
@@ -156,7 +161,7 @@ var app = React.createClass({
 			<div>
 				<div>
 					<div className="searchbar">
-						<h1 className="title">What Brew am I Drinking?</h1>
+						<h1 className="title">find a beer</h1>
 						<input type="text" ref={(c) => this.state.query = c}></input>
 						<button onClick={this.search}><span className="glyphicon glyphicon-search"></span></button>
 					</div>
@@ -167,6 +172,6 @@ var app = React.createClass({
 			</div>
 		)
 	}
-})
+}
 
-module.exports = app;
+export default App;

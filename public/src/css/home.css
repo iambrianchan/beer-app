@@ -1,7 +1,7 @@
 body {
 	-webkit-font-smoothing: antialiased;
 	font-family: 'Lato', sans-serif;
-	background-image: url("../../public/src/img/wallpaper_50.jpg");
+	background-image: url("../img/wallpaper_50.jpg");
 }
 
 h1.title {
