@@ -1,15 +1,13 @@
-FROM node:boron
+FROM node:8
 
 WORKDIR /usr/src/app
 
 COPY package.json .
 
-#COPY package-lock.json ./
+copy . .
 
-#RUN npm install
-
-COPY . .
+RUN yarn install
 
 EXPOSE 8080
-
-CMD ["./node_modules/grunt/bin/grunt", "-v", "-d", "--stack"]
+RUN ./node_modules/gulp/bin/gulp.js
+CMD ["node", "index.js"]
