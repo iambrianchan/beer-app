@@ -11,6 +11,7 @@ const gulp = require("gulp");
 const imagemin = require("gulp-imagemin");
 const newer = require("gulp-newer");
 const plumber = require("gulp-plumber");
+const pug = require("gulp-pug");
 const postcss = require("gulp-postcss");
 const cssmin = require("gulp-cssmin");
 const rename = require("gulp-rename");
@@ -21,10 +22,7 @@ const webpackstream = require("webpack-stream");
 // BrowserSync
 function browserSync(done) {
   browsersync.init({
-    server: {
-      baseDir: "./build/"
-    },
-    port: 3000
+    proxy: "localhost:8080",
   });
   done();
 }
@@ -62,6 +60,16 @@ function images() {
     )
     .pipe(gulp.dest("./build/assets/img"));
 }
+
+// Pug task
+function pugTask() {
+  return gulp
+    .src("public/src/**/*.pug")
+    .pipe(plumber())
+    .pipe(pug({ pretty: true}))
+    .pipe(gulp.dest("./build/assets"))
+    .pipe(browsersync.stream());
+};
 
 // CSS task
 function css() {
@@ -107,6 +115,7 @@ function jekyll() {
 
 // Watch files
 function watchFiles() {
+  gulp.watch("./public/src/views/*", pugTask);
   gulp.watch("./public/src/css/*", css);
   gulp.watch("./public/src/js/*", gulp.series(scriptsLint, scripts));
   gulp.watch(
@@ -123,7 +132,7 @@ function watchFiles() {
 }
 
 const js = gulp.series(scriptsLint, scripts);
-const build = gulp.series(clean, gulp.parallel(css, images, js));
+const build = gulp.series(clean, gulp.parallel(pugTask, css, images, js));
 const watch = gulp.parallel(watchFiles, browserSync);
 
 

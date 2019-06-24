@@ -76,6 +76,6 @@ module.exports = function(app) {
 		})
 	})
 	app.get("*", function callback(req, res) {
-		res.render("index");
+		res.sendFile("/index.html", { root: "build/assets/views"});
 	});
 }

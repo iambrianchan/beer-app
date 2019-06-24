@@ -15,6 +15,9 @@ class App extends React.Component {
 			activeRow: -1,
 			keyup: this.keyup()
 		};
+		this.keyup = this.keyup.bind(this);
+		this.search = this.search.bind(this);
+		this.jump = this.jump.bind(this);
 	}
 
 	componentDidMount() {
@@ -52,8 +55,6 @@ class App extends React.Component {
 				description: BeerStore.getDescription()
 			});
 		});
-
-		console.log(this)
 	}
 
 	// listen for key ups, if return button is pressed then search

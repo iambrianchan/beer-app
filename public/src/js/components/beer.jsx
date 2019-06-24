@@ -11,7 +11,6 @@ class Beer extends React.Component {
 	};
 
 	search() {
-		console.log(this);
 		if (!this.props.data) {
 			return;
 		}
